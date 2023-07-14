@@ -11,7 +11,7 @@ import {
 import { DayToCome } from './daytocome.entity';
 import { DaytocomeService } from './daytocome.service';
 
-@Controller('daytocome')
+@Controller('/api/daytocome')
 export class DaytocomeController {
   constructor(private readonly daytoComeService: DaytocomeService) {}
   //
