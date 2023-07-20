@@ -26,11 +26,10 @@ export class DaytocomeService {
   async findOne(id: number): Promise<DayToCome> {
     return this.dayToComeRepository.findOne({ where: { id } });
   }
-  async findDate(date: string): Promise<DayToCome[]> {
-    const partialDate = date.substring(0, 7);
+  async findDate(date?: string): Promise<DayToCome[]> {
     const dateQuery = this.dayToComeRepository.find({
-      where: { date: Like(`%${partialDate}%`) },
+      where: { date: Like(`%${date}%`) },
     });
-    return dateQuery ? dateQuery : [];
+    return dateQuery;
   }
 }
