@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { DayToCome } from './daytocome.entity';
 
 @Injectable()
@@ -27,7 +27,10 @@ export class DaytocomeService {
     return this.dayToComeRepository.findOne({ where: { id } });
   }
   async findDate(date: string): Promise<DayToCome[]> {
-    const dateQuery = this.dayToComeRepository.find({ where: { date } });
+    const partialDate = date.substring(0, 7);
+    const dateQuery = this.dayToComeRepository.find({
+      where: { date: Like(`%${partialDate}%`) },
+    });
     return dateQuery ? dateQuery : [];
   }
 }
