@@ -9,9 +9,9 @@ export class DaytocomeService {
     @InjectRepository(DayToCome)
     private dayToComeRepository: Repository<DayToCome>,
   ) {}
-  async findAll(): Promise<DayToCome[]> {
-    return this.dayToComeRepository.find();
-  }
+  // async findAll(): Promise<DayToCome[]> {
+  //   return this.dayToComeRepository.find();
+  // }
   async create(dayToCome: Partial<DayToCome>): Promise<DayToCome> {
     const newDay = this.dayToComeRepository.create(dayToCome);
     return this.dayToComeRepository.save(newDay);
@@ -25,5 +25,9 @@ export class DaytocomeService {
   }
   async findOne(id: number): Promise<DayToCome> {
     return this.dayToComeRepository.findOne({ where: { id } });
+  }
+  async findDate(date: string): Promise<DayToCome[]> {
+    const dateQuery = this.dayToComeRepository.find({ where: { date } });
+    return dateQuery ? dateQuery : [];
   }
 }

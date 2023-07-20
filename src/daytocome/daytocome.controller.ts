@@ -7,18 +7,22 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { DayToCome } from './daytocome.entity';
 import { DaytocomeService } from './daytocome.service';
+import { DateFilterDto } from './dto/datefilter.dto';
 
 @Controller('/api/daytocome')
 export class DaytocomeController {
   constructor(private readonly daytoComeService: DaytocomeService) {}
   //
+
   @Get('/')
-  async findAll(): Promise<DayToCome[]> {
-    return this.daytoComeService.findAll();
+  async findDate(@Query() date?: DateFilterDto): Promise<DayToCome[]> {
+    return this.daytoComeService.findDate(date.date);
   }
+
   @Post('create')
   async create(@Body() day: DayToCome): Promise<DayToCome> {
     return this.daytoComeService.create(day);
@@ -42,7 +46,7 @@ export class DaytocomeController {
   async findOne(@Param('id') id: number): Promise<DayToCome> {
     const user = await this.daytoComeService.findOne(id);
     if (!user) {
-      throw new NotFoundException('User does not exist!');
+      throw new NotFoundException('Date not Exit!');
     } else {
       return user;
     }
