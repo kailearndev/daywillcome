@@ -30,6 +30,12 @@ export class DaytocomeService {
     const dateQuery = this.dayToComeRepository.find({
       where: { date: Like(`%${date}%`) },
     });
-    return date ? dateQuery : this.dayToComeRepository.find();
+    return date
+      ? dateQuery
+      : this.dayToComeRepository.find({
+          order: {
+            id: 'DESC',
+          },
+        });
   }
 }
