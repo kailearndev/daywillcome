@@ -13,20 +13,15 @@ async function bootstrap() {
     cert: fs.readFileSync('./key/server.cert'),
   };
 
-  // const server = express();
-  // const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
-  // app.enableCors({
-  //   credentials: true,
-  //   // origin: ['*'],
-  //   // preflightContinue: true,
-  // });
-  // await app.init();
-  // createHttpServer(server).listen(3000);
-  // createHttpsServer(httpsOptions, server).listen(443);
-  const app = await NestFactory.create(AppModule, {
-    httpsOptions,
+  const server = express();
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  app.enableCors({
+    credentials: true,
+    // origin: ['*'],
+    preflightContinue: true,
   });
   await app.init();
-  await app.listen(3000);
+  createHttpServer(server).listen(3000);
+  createHttpsServer(httpsOptions, server).listen(443);
 }
 bootstrap();
