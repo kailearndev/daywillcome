@@ -5,6 +5,10 @@ import { AppService } from './app.service';
 import { DaytocomeController } from './daytocome/daytocome.controller';
 import { DayToCome } from './daytocome/daytocome.entity';
 import { DaytocomeModule } from './daytocome/daytocome.module';
+import { UserService } from './user/user.service';
+import { UserController } from './user/user.controller';
+import { UserModule } from './user/user.module';
+import { User } from './user/user.entity';
 
 @Module({
   imports: [
@@ -15,12 +19,13 @@ import { DaytocomeModule } from './daytocome/daytocome.module';
       username: 'postgres',
       password: '0410',
       database: 'postgres',
-      entities: [DayToCome],
+      entities: [DayToCome, User],
       synchronize: true,
     }),
     DaytocomeModule,
+    UserModule,
   ],
-  controllers: [AppController, DaytocomeController],
+  controllers: [AppController, DaytocomeController, UserController],
   providers: [AppService],
 })
 export class AppModule {}
