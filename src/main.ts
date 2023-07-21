@@ -15,8 +15,11 @@ async function bootstrap() {
 
   const server = express();
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  app.enableCors({
+    allowedHeaders: '*',
+    credentials: true,
+  });
   await app.init();
-
   createHttpServer(server).listen(3000);
   createHttpsServer(httpsOptions, server).listen(443);
 }
