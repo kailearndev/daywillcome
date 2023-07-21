@@ -17,7 +17,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
   app.enableCors({
     credentials: true,
-    origin: ['daytocomeahihi.vercel.app'],
+    origin: ['*'],
     preflightContinue: true,
   });
   await app.init();
