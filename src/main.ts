@@ -9,18 +9,24 @@ import * as express from 'express';
 
 async function bootstrap() {
   const httpsOptions = {
-    key: fs.readFileSync('./key/key.pem'),
-    cert: fs.readFileSync('./key/cert.pem'),
+    key: fs.readFileSync('./key/server.key'),
+    cert: fs.readFileSync('./key/server.cert'),
   };
 
-  const server = express();
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
-  app.enableCors({
-    allowedHeaders: '*',
-    credentials: true,
+  // const server = express();
+  // const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  // app.enableCors({
+  //   credentials: true,
+  //   // origin: ['*'],
+  //   // preflightContinue: true,
+  // });
+  // await app.init();
+  // createHttpServer(server).listen(3000);
+  // createHttpsServer(httpsOptions, server).listen(443);
+  const app = await NestFactory.create(AppModule, {
+    httpsOptions,
   });
   await app.init();
-  createHttpServer(server).listen(3000);
-  createHttpsServer(httpsOptions, server).listen(443);
+  await app.listen(3000);
 }
 bootstrap();
