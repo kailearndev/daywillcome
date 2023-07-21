@@ -1,24 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as fs from 'fs';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
-const httpsOptions = {
-  key: fs.readFileSync('./key/key.pem'),
-  cert: fs.readFileSync('./key/cert.pem'),
-};
+
+import { ExpressAdapter } from '@nestjs/platform-express';
+import { createServer as createHttpServer } from 'http';
+import { createServer as createHttpsServer } from 'https';
+import * as express from 'express';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter({ https: httpsOptions }),
-  );
-  app.enableCors({
-    // origin: true,
-    credentials: true,
-  });
-  await app.listen(4900);
+  const httpsOptions = {
+    key: fs.readFileSync('./key/key.pem'),
+    cert: fs.readFileSync('./key/cert.pem'),
+  };
+
+  const server = express();
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  await app.init();
+
+  createHttpServer(server).listen(3000);
+  createHttpsServer(httpsOptions, server).listen(443);
 }
 bootstrap();
