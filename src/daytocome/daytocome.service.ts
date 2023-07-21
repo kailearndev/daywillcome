@@ -16,11 +16,6 @@ export class DaytocomeService {
     return date
       ? dateQuery
       : this.dayToComeRepository.find({
-          where: {
-            user: {
-              id: 4,
-            },
-          },
           order: {
             id: 'DESC',
           },
