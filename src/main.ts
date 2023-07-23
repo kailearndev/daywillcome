@@ -8,19 +8,16 @@ import { createServer as createHttpsServer } from 'https';
 import * as express from 'express';
 
 async function bootstrap() {
-  // const httpsOptions = {
-  //   key: fs.readFileSync('./key/server.key'),
-  //   cert: fs.readFileSync('./key/server.cert'),
-  // };
+  const httpsOptions = {
+    key: fs.readFileSync('./cert/cert-key.pem'),
+    cert: fs.readFileSync('./cert/cert.pem'),
+  };
 
-  // const server = express();
-  // const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
-  // app.enableCors();
-  // await app.init();
-  // createHttpServer(server).listen(3000);
-  // createHttpsServer(httpsOptions, server).listen(443);
-  const app = await NestFactory.create(AppModule);
-  app.enableCors()
-  await app.listen(5000);
+  const server = express();
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  app.enableCors();
+  await app.init();
+  createHttpServer(server).listen(3000);
+  createHttpsServer(httpsOptions, server).listen(443);
 }
 bootstrap();
