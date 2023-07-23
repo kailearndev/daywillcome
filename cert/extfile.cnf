@@ -1,4 +1,10 @@
 subjectAltName = @alt_names
 
 [alt_names]
-IP.1 = 54.251.181.115
+
+DNS = localhost
+
+
+[server_exts]
+
+extendedKeyUsage = serverAuth
