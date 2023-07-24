@@ -9,8 +9,8 @@ import * as express from 'express';
 
 async function bootstrap() {
   const httpsOptions = {
-    key: fs.readFileSync('./cert/cert-key.pem'),
-    cert: fs.readFileSync('./cert/cert.pem'),
+    key: fs.readFileSync('./cert/private-key.pem'),
+    cert: fs.readFileSync('./cert/cer.pem'),
   };
 
   const server = express();
