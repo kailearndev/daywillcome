@@ -18,6 +18,6 @@ async function bootstrap() {
   app.enableCors();
   await app.init();
   createHttpServer(server).listen(3000);
-  createHttpsServer(httpsOptions, server).listen(443);
+  createHttpsServer(server).listen(443);
 }
 bootstrap();
