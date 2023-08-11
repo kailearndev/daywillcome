@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { DaytocomeController } from './daytocome/daytocome.controller';
 import { DayToCome } from './daytocome/daytocome.entity';
 import { DaytocomeModule } from './daytocome/daytocome.module';
- import { UserController } from './user/user.controller';
+import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 
@@ -27,4 +27,4 @@ import { User } from './user/user.entity';
   controllers: [AppController, DaytocomeController, UserController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
