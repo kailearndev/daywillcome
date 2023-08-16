@@ -17,20 +17,42 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./user.entity");
+const bcrypt = require("bcrypt");
 let UserService = exports.UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    async find() {
-        const user = this.userRepository
-            .createQueryBuilder('user')
-            .leftJoinAndSelect('user.id', 'user')
-            .getMany();
-        return user;
+    async getAllUser() {
+        return await this.userRepository.find();
     }
-    async create(user) {
-        const newDay = this.userRepository.create(user);
-        return this.userRepository.save(newDay);
+    async createUser(user) {
+        const hashPassword = await bcrypt.hash(user.password, 12);
+        const userCreate = this.userRepository.create({
+            ...user,
+            password: hashPassword,
+        });
+        const newUser = await this.userRepository.save(userCreate);
+        return newUser;
+    }
+    async updateUser(id, user) {
+        await this.userRepository.update(id, user);
+        return await this.userRepository.findOne({ where: { id } });
+    }
+    async getUserName(username) {
+        return await this.userRepository.findOne({
+            where: { username },
+        });
+    }
+    async getUserId(id) {
+        return await this.userRepository.findOne({
+            where: { id },
+            relations: {
+                day: true,
+            },
+        });
+    }
+    async deleteUser(id) {
+        await this.userRepository.delete(id);
     }
 };
 exports.UserService = UserService = __decorate([

@@ -1,7 +1,7 @@
-import { DayToCome } from 'src/daytocome/daytocome.entity';
+import { Day } from 'src/day/day.entity';
 export declare class User {
     id: number;
     username: string;
     password: string;
-    daytocome: DayToCome[];
+    day: Day[];
 }

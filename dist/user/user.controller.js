@@ -14,34 +14,80 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-const user_dto_1 = require("./dto/user.dto");
+const day_service_1 = require("../day/day.service");
+const create_user_dto_1 = require("./dto/create-user.dto");
 const user_service_1 = require("./user.service");
 let UserController = exports.UserController = class UserController {
-    constructor(userService) {
+    constructor(userService, dayService) {
         this.userService = userService;
+        this.dayService = dayService;
     }
-    async findDate() {
-        return this.userService.find();
+    async getAllUser() {
+        return await this.userService.getAllUser();
     }
-    async create(user) {
-        return this.userService.create(user);
+    async createUser(userDto) {
+        return await this.userService.createUser(userDto);
+    }
+    async getUserId(id) {
+        const findUser = await this.userService.getUserId(id);
+        if (!findUser) {
+            throw new Error('User not foud');
+        }
+        else {
+            return findUser;
+        }
+    }
+    async updateUser(id, createUser) {
+        return this.userService.updateUser(id, createUser);
+    }
+    async deleteUser(id) {
+        const user = await this.userService.getUserId(id);
+        if (user) {
+            await this.userService.deleteUser(id);
+        }
+        else {
+            throw new Error('User not found');
+        }
     }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)('/'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "findDate", null);
+], UserController.prototype, "getAllUser", null);
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('/'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.userDto]),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "create", null);
+], UserController.prototype, "createUser", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUserId", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, create_user_dto_1.CreateUserDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUser", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "deleteUser", null);
 exports.UserController = UserController = __decorate([
-    (0, common_1.Controller)('api/user'),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    (0, common_1.Controller)('user'),
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        day_service_1.DayService])
 ], UserController);
 //# sourceMappingURL=user.controller.js.map

@@ -6,21 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModule = void 0;
-const typeorm_1 = require("@nestjs/typeorm");
+exports.DayModule = void 0;
 const common_1 = require("@nestjs/common");
-const user_controller_1 = require("./user.controller");
-const user_service_1 = require("./user.service");
-const user_entity_1 = require("./user.entity");
-const day_service_1 = require("../day/day.service");
-const day_entity_1 = require("../day/day.entity");
-let UserModule = exports.UserModule = class UserModule {
+const typeorm_1 = require("@nestjs/typeorm");
+const user_entity_1 = require("../user/user.entity");
+const user_service_1 = require("../user/user.service");
+const day_controller_1 = require("./day.controller");
+const day_entity_1 = require("./day.entity");
+const day_service_1 = require("./day.service");
+let DayModule = exports.DayModule = class DayModule {
 };
-exports.UserModule = UserModule = __decorate([
+exports.DayModule = DayModule = __decorate([
     (0, common_1.Module)({
-        controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, day_service_1.DayService],
-        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, day_entity_1.Day])],
+        controllers: [day_controller_1.DayController],
+        providers: [day_service_1.DayService, user_service_1.UserService],
+        imports: [typeorm_1.TypeOrmModule.forFeature([day_entity_1.Day, user_entity_1.User])],
     })
-], UserModule);
-//# sourceMappingURL=user.module.js.map
+], DayModule);
+//# sourceMappingURL=day.module.js.map
