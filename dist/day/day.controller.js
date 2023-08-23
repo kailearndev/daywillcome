@@ -17,6 +17,7 @@ const create_day_dto_1 = require("./dto/create-day.dto");
 const common_1 = require("@nestjs/common");
 const day_service_1 = require("./day.service");
 const user_service_1 = require("../user/user.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let DayController = exports.DayController = class DayController {
     constructor(dayService, userService) {
         this.dayService = dayService;
@@ -88,6 +89,7 @@ __decorate([
 ], DayController.prototype, "deleteDate", null);
 exports.DayController = DayController = __decorate([
     (0, common_1.Controller)('day'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [day_service_1.DayService,
         user_service_1.UserService])
 ], DayController);

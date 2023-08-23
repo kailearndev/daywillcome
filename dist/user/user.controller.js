@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const day_service_1 = require("../day/day.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const user_service_1 = require("./user.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let UserController = exports.UserController = class UserController {
     constructor(userService, dayService) {
         this.userService = userService;
@@ -34,7 +35,8 @@ let UserController = exports.UserController = class UserController {
             throw new Error('User not foud');
         }
         else {
-            return findUser;
+            const { password, ...newUser } = findUser;
+            return newUser;
         }
     }
     async updateUser(id, createUser) {
@@ -87,6 +89,7 @@ __decorate([
 ], UserController.prototype, "deleteUser", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [user_service_1.UserService,
         day_service_1.DayService])
 ], UserController);

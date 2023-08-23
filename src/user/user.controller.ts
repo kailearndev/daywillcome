@@ -6,13 +6,16 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { DayService } from 'src/day/day.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('user')
+@UseGuards(JwtAuthGuard)
 export class UserController {
   constructor(
     private userService: UserService,
@@ -33,7 +36,8 @@ export class UserController {
     if (!findUser) {
       throw new Error('User not foud');
     } else {
-      return findUser;
+      const { password, ...newUser } = findUser;
+      return newUser;
     }
   }
   // update

@@ -13,7 +13,7 @@ export class User {
   @Column()
   username: string;
   @Column()
-  password: string;
+  password?: string;
   @OneToMany(() => Day, (day) => day.user)
   day: Day[];
 }

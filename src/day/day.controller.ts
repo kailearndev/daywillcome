@@ -7,12 +7,15 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { DayService } from './day.service';
 import { Day } from './day.entity';
 import { UserService } from 'src/user/user.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('day')
+@UseGuards(JwtAuthGuard)
 export class DayController {
   constructor(
     private dayService: DayService,
