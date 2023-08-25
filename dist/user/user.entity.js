@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+const class_transformer_1 = require("class-transformer");
 const day_entity_1 = require("../day/day.entity");
 const typeorm_1 = require("typeorm");
 let User = exports.User = class User {
@@ -24,8 +25,17 @@ __decorate([
 ], User.prototype, "username", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Exclude)({ toPlainOnly: true }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "avatar", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "avatarName", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => day_entity_1.Day, (day) => day.user),
     __metadata("design:type", Array)

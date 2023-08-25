@@ -8,7 +8,7 @@ export declare class UserController {
     constructor(userService: UserService, dayService: DayService);
     getAllUser(): Promise<User[]>;
     createUser(userDto: CreateUserDto): Promise<User>;
-    getUserId(id: number): Promise<User>;
+    getUserId(id: number): Promise<any>;
     updateUser(id: number, createUser: CreateUserDto): Promise<User>;
     deleteUser(id: number): Promise<void>;
 }

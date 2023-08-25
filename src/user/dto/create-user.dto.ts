@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { IsNotEmpty, Length } from 'class-validator';
 
 export class CreateUserDto {
@@ -8,4 +9,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   @Length(6, 20)
   password: string;
+  avatar: string;
+  avatarName: string;
 }

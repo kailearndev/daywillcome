@@ -13,6 +13,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { plainToClass } from 'class-transformer';
 
 @Controller('user')
 @UseGuards(JwtAuthGuard)
@@ -31,7 +32,7 @@ export class UserController {
     return await this.userService.createUser(userDto);
   }
   @Get(':id')
-  async getUserId(@Param('id') id: number): Promise<User> {
+  async getUserId(@Param('id') id: number): Promise<any> {
     const findUser = await this.userService.getUserId(id);
     if (!findUser) {
       throw new Error('User not foud');
