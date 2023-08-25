@@ -1,11 +1,5 @@
 import { Day } from 'src/day/day.entity';
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 @Entity('user')
 export class User {
   @PrimaryGeneratedColumn()
@@ -14,6 +8,11 @@ export class User {
   username: string;
   @Column()
   password: string;
+  @Column()
+  avatar: string;
+  @Column()
+  avatarName: string;
+
   @OneToMany(() => Day, (day) => day.user)
   day: Day[];
 }

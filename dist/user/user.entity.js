@@ -27,6 +27,14 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "avatar", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "avatarName", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => day_entity_1.Day, (day) => day.user),
     __metadata("design:type", Array)
 ], User.prototype, "day", void 0);
