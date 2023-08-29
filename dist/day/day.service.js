@@ -24,7 +24,11 @@ let DayService = exports.DayService = class DayService {
         this.userRepository = userRepository;
     }
     async getAllDate() {
-        return await this.dayRepository.find();
+        return await this.dayRepository.find({
+            order: {
+                date: 'DESC',
+            },
+        });
     }
     async getDateById(id) {
         return await this.dayRepository.findOne({

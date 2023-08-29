@@ -14,7 +14,11 @@ export class DayService {
     private userRepository: Repository<User>,
   ) {}
   async getAllDate(): Promise<Day[]> {
-    return await this.dayRepository.find();
+    return await this.dayRepository.find({
+      order: {
+        date: 'DESC',
+      },
+    });
   }
   async getDateById(id: number): Promise<Day> {
     return await this.dayRepository.findOne({
