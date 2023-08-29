@@ -22,6 +22,9 @@ export class AuthService {
     }
 
     if (!comparePassword) {
+      console.log(user.password);
+      console.log(password);
+
       throw new UnauthorizedException('Password is not valid');
     }
     return user;

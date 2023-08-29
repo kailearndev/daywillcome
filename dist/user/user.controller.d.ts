@@ -1,5 +1,5 @@
 import { DayService } from 'src/day/day.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 export declare class UserController {
@@ -9,6 +9,6 @@ export declare class UserController {
     getAllUser(): Promise<User[]>;
     createUser(userDto: CreateUserDto): Promise<User>;
     getUserId(id: number): Promise<any>;
-    updateUser(id: number, createUser: CreateUserDto): Promise<User>;
+    updateUser(id: number, createUser: UpdateUserDto): Promise<User>;
     deleteUser(id: number): Promise<void>;
 }

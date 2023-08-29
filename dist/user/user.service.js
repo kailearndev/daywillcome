@@ -31,17 +31,28 @@ let UserService = exports.UserService = class UserService {
             ...user,
             password: hashPassword,
         });
+        const users = await this.userRepository.findOne({
+            where: { username: user.username },
+        });
+        if (users) {
+            throw new common_1.NotFoundException('Username Is Existed!!!');
+        }
         const newUser = await this.userRepository.save(userCreate);
         return newUser;
     }
     async updateUser(id, user) {
-        await this.userRepository.update(id, user);
+        const hashPassword = await bcrypt.hash(user.password, 12);
+        await this.userRepository.update(id, {
+            ...user,
+            password: hashPassword,
+        });
         return await this.userRepository.findOne({ where: { id } });
     }
     async getUserName(username) {
-        return await this.userRepository.findOne({
+        const user = await this.userRepository.findOne({
             where: { username },
         });
+        return user;
     }
     async getUserId(id) {
         return await this.userRepository.findOne({

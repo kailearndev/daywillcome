@@ -34,10 +34,8 @@ let UserController = exports.UserController = class UserController {
         if (!findUser) {
             throw new Error('User not foud');
         }
-        else {
-            const { password, ...newUser } = findUser;
-            return newUser;
-        }
+        const { password, ...newUser } = findUser;
+        return newUser;
     }
     async updateUser(id, createUser) {
         return this.userService.updateUser(id, createUser);
@@ -77,7 +75,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, create_user_dto_1.CreateUserDto]),
+    __metadata("design:paramtypes", [Number, create_user_dto_1.UpdateUserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([

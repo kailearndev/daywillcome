@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { DayService } from 'src/day/day.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -36,16 +36,15 @@ export class UserController {
     const findUser = await this.userService.getUserId(id);
     if (!findUser) {
       throw new Error('User not foud');
-    } else {
-      const { password, ...newUser } = findUser;
-      return newUser;
     }
+    const { password, ...newUser } = findUser;
+    return newUser;
   }
   // update
   @Put(':id')
   async updateUser(
     @Param('id') id: number,
-    @Body() createUser: CreateUserDto,
+    @Body() createUser: UpdateUserDto,
   ): Promise<User> {
     return this.userService.updateUser(id, createUser);
   }

@@ -5,3 +5,10 @@ export declare class CreateUserDto {
     avatar: string;
     avatarName: string;
 }
+export declare class UpdateUserDto {
+    id: number;
+    username?: string;
+    password?: string;
+    avatar?: string;
+    avatarName?: string;
+}
