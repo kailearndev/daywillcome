@@ -17,9 +17,15 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const jwt_auth_guard_1 = require("./jwt-auth.guard");
 const local_auth_guard_1 = require("./local-auth.guard");
+const bcrypt = require("bcrypt");
 let AuthController = exports.AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
+    }
+    async forgetPassword(username) {
+        const pwd = await this.authService.forgetPassword(username);
+        const salt = await bcrypt.genSalt(pwd, 12);
+        console.log(salt);
     }
     async signIn(req) {
         return await this.authService.generateToken(req.user);
@@ -28,6 +34,13 @@ let AuthController = exports.AuthController = class AuthController {
         return req.user;
     }
 };
+__decorate([
+    (0, common_1.Get)('forgotPWD'),
+    __param(0, (0, common_1.Param)('username')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "forgetPassword", null);
 __decorate([
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, common_1.Post)('/login'),

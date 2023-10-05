@@ -46,7 +46,8 @@ let UserService = exports.UserService = class UserService {
             ...user,
             password: hashPassword,
         });
-        return await this.userRepository.findOne({ where: { id } });
+        const updateUser = await this.userRepository.findOne({ where: { id } });
+        return updateUser;
     }
     async getUserName(username) {
         const user = await this.userRepository.findOne({

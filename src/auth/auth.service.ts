@@ -22,12 +22,20 @@ export class AuthService {
     }
 
     if (!comparePassword) {
-      console.log(user.password);
-      console.log(password);
-
       throw new UnauthorizedException('Password is not valid');
     }
     return user;
+  }
+  async forgetPassword(username: string): Promise<any> {
+    const user = await this.userService.getUserName(username);
+    if (user) {
+      return user.password;
+    }
+    // if (user) {
+    //   // return comparePassword;
+    // } else {
+    //   throw new BadRequestException('User Not Found');
+    // }
   }
   async generateToken(user: PayloadDto) {
     return {

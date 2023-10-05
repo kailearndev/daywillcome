@@ -26,11 +26,15 @@ let AuthService = exports.AuthService = class AuthService {
             throw new common_1.BadRequestException('User Not Found');
         }
         if (!comparePassword) {
-            console.log(user.password);
-            console.log(password);
             throw new common_1.UnauthorizedException('Password is not valid');
         }
         return user;
+    }
+    async forgetPassword(username) {
+        const user = await this.userService.getUserName(username);
+        if (user) {
+            return user.password;
+        }
     }
     async generateToken(user) {
         return {

@@ -34,15 +34,15 @@ export class UserService {
     const newUser = await this.userRepository.save(userCreate);
     return newUser;
   }
-  //update new User
 
-  async updateUser(id: number, user: UpdateUserDto): Promise<User> {
+  async updateUser(id: number, user?: UpdateUserDto): Promise<User> {
     const hashPassword = await bcrypt.hash(user.password, 12);
     await this.userRepository.update(id, {
       ...user,
       password: hashPassword,
     });
-    return await this.userRepository.findOne({ where: { id } });
+    const updateUser = await this.userRepository.findOne({ where: { id } });
+    return updateUser;
   }
   async getUserName(username: string): Promise<User> {
     const user = await this.userRepository.findOne({
